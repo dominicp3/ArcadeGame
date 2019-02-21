@@ -9,11 +9,6 @@
 const int FRAME_WIDTH = 1700;
 const int FRAME_HEIGHT = 700;
 
-const int LEFT_ARROW = 16777234;
-const int RIGHT_ARROW = 16777236;
-const int UP_ARROW = 16777235;
-//const int DOWN_ARROW = 16777237;
-
 Dialog::Dialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Dialog),
@@ -21,7 +16,6 @@ Dialog::Dialog(QWidget *parent) :
     level(new Level {FRAME_WIDTH, FRAME_HEIGHT, Player {10, 0}})
 {
     level->scroll(false);
-
     setFixedSize(FRAME_WIDTH, FRAME_HEIGHT);
     configureLevel("/config.json");
     ui->setupUi(this);
@@ -80,21 +74,21 @@ void Dialog::paintEvent(QPaintEvent *painter) {
 
 void Dialog::keyReleaseEvent(QKeyEvent *e) {
     if (!e->isAutoRepeat()) {
-        if (e->key() == LEFT_ARROW)
+        if (e->key() == Qt::Key_Left)
             left_key = false;
-        if (e->key() == RIGHT_ARROW)
+        if (e->key() == Qt::Key_Right)
             right_key = false;
-        if (e->key() == UP_ARROW)
+        if (e->key() == Qt::Key_Up)
             up_key = false;
     }
 }
 
 void Dialog::keyPressEvent(QKeyEvent *e) {
-    if (e->key() == LEFT_ARROW)
+    if (e->key() == Qt::Key_Left)
         left_key = true;
-    if (e->key() == RIGHT_ARROW)
+    if (e->key() == Qt::Key_Right)
         right_key = true;
-    if (e->key() == UP_ARROW and !up_key) {
+    if (e->key() == Qt::Key_Up and !up_key) {
         up_key = true;
         level->setYVelocity(8);
     }
