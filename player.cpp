@@ -44,7 +44,7 @@ void Player::collisionDetection(Obstacle &ob) {
     m_ypos -= m_yvel;
 }
 
-void Player::move(std::vector<Obstacle> &obstacles, int frameWidth, int frameHeight) {
+void Player::move(std::vector<Obstacle> &obstacles, int renderWidth, int renderHeight) {
 
     for (auto &ob : obstacles)
         collisionDetection(ob);
@@ -54,13 +54,10 @@ void Player::move(std::vector<Obstacle> &obstacles, int frameWidth, int frameHei
         m_yvel = 0;
     }
 
-    if (getRightEdge() + m_xvel >= frameWidth/2)
-        m_xpos = frameWidth/2 - m_width - 1;
-
-    if (getLeftEdge() + m_xvel >= 0 and getRightEdge() + m_xvel < frameWidth/2)
+    if (getLeftEdge() + m_xvel >= 0 and getRightEdge() + m_xvel < renderWidth)
         m_xpos += m_xvel;
 
-    if (getBottomEdge() + m_yvel >= 54 and getTopEdge() + m_yvel <= frameHeight)
+    if (getBottomEdge() + m_yvel >= 54 and getTopEdge() + m_yvel <= renderHeight)
         m_ypos += m_yvel;
 
     m_yvel -= m_gravity;

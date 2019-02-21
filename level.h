@@ -14,9 +14,11 @@ public:
     void setXVelocity(double xV) {m_player.setXVelocity(xV);}
     void setYVelocity(double yV) {m_player.setYVelocity(yV);}
 
+    void scroll(bool s);
+
 private:
-    const int m_frameWidth;
-    const int m_frameHeight;
+    int m_renderWidth;
+    const int m_renderHeight;
 
     Player m_player;
     std::vector<Obstacle> m_obstacles;
@@ -24,6 +26,8 @@ private:
     QImage m_background;
 
     int m_screenOffset = 0;
+
+    bool m_scroll = true;
 };
 
 #endif // LEVEL_H

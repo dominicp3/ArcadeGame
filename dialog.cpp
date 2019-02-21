@@ -20,6 +20,8 @@ Dialog::Dialog(QWidget *parent) :
     timer(new QTimer {this}),
     level(new Level {FRAME_WIDTH, FRAME_HEIGHT, Player {10, 0}})
 {
+    level->scroll(false);
+
     setFixedSize(FRAME_WIDTH, FRAME_HEIGHT);
     configureLevel("/config.json");
     ui->setupUi(this);
