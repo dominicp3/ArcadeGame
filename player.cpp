@@ -16,6 +16,25 @@ void Player::render(QPainter &painter, int frameHeight) {
     painter.drawImage(static_cast<int>(m_xpos), static_cast<int>(frameHeight - m_height - m_ypos), m_playerIcon);
 }
 
+void Player::move(std::vector<Obstacle> &obstacles, int renderWidth, int renderHeight) {
+
+    for (auto &ob : obstacles)
+        collisionDetection(ob);
+
+    if (getBottomEdge() + m_yvel <= 54) {
+        m_ypos = 54;
+        m_yvel = 0;
+    }
+
+    if (getLeftEdge() + m_xvel >= 0 and getRightEdge() + m_xvel < renderWidth)
+        m_xpos += m_xvel;
+
+    if (getBottomEdge() + m_yvel >= 54 and getTopEdge() + m_yvel <= renderHeight)
+        m_ypos += m_yvel;
+
+    m_yvel -= m_gravity;
+}
+
 void Player::collisionDetection(Obstacle &ob) {
     m_xpos += m_xvel;
     m_ypos += m_yvel;
@@ -42,25 +61,6 @@ void Player::collisionDetection(Obstacle &ob) {
 
     m_xpos -= m_xvel;
     m_ypos -= m_yvel;
-}
-
-void Player::move(std::vector<Obstacle> &obstacles, int renderWidth, int renderHeight) {
-
-    for (auto &ob : obstacles)
-        collisionDetection(ob);
-
-    if (getBottomEdge() + m_yvel <= 54) {
-        m_ypos = 54;
-        m_yvel = 0;
-    }
-
-    if (getLeftEdge() + m_xvel >= 0 and getRightEdge() + m_xvel < renderWidth)
-        m_xpos += m_xvel;
-
-    if (getBottomEdge() + m_yvel >= 54 and getTopEdge() + m_yvel <= renderHeight)
-        m_ypos += m_yvel;
-
-    m_yvel -= m_gravity;
 }
 
 bool Player::collisionLeft(Obstacle &ob) {
