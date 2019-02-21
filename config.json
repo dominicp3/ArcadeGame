@@ -1,0 +1,7 @@
+{
+  "obstacles" : [
+    {"colour": "red", "position": {"x":900, "y":55}, "dimensions": {"x":50, "y":100}},
+    {"colour": "black", "position": {"x":530, "y":220}, "dimensions": {"x":50, "y":100}},
+    {"colour": "blue", "position": {"x":200, "y":200}, "dimensions": {"x":500, "y":20}}
+  ]
+}
