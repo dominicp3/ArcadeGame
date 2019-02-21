@@ -10,16 +10,6 @@ Level::Level(int width, int height, Player player) :
     m_background = QImage {path.path().append("/background.png")};
 }
 
-Level::Level(Point dimensions, Player player) :
-    m_frameWidth(static_cast<int>(dimensions.x)),
-    m_frameHeight(static_cast<int>(dimensions.y)),
-    m_player(player)
-{
-    QDir path = QDir::currentPath();
-    path.cd("../ArcadeGame/images");
-    m_background = QImage {path.path().append("/background.png")};
-}
-
 void Level::renderLevel(QPainter &paint) {
 
     if (m_screenOffset <= -2*m_frameWidth) m_screenOffset = 0;

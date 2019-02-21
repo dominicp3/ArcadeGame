@@ -7,7 +7,6 @@
 class Level {
 public:
     Level(int width, int height, Player player);
-    Level(Point dimensions, Player player);
 
     void renderLevel(QPainter &paint);
     void addObstacle(Obstacle obj);

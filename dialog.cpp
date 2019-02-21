@@ -14,8 +14,6 @@ const int RIGHT_ARROW = 16777236;
 const int UP_ARROW = 16777235;
 //const int DOWN_ARROW = 16777237;
 
-using namespace std;
-
 Dialog::Dialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Dialog),
@@ -24,8 +22,6 @@ Dialog::Dialog(QWidget *parent) :
 {
     setFixedSize(FRAME_WIDTH, FRAME_HEIGHT);
     configureLevel("/config.json");
-    configureTimer();
-
     ui->setupUi(this);
     configureTimer();
 }
@@ -36,31 +32,6 @@ Dialog::~Dialog() {
     delete level;
 }
 
-void Dialog::configureLevel(const QString filename) {
-
-    QDir path = (QDir::currentPath());
-    path.cd("../ArcadeGame");
-
-    QFile file { path.path().append(filename) };
-
-    file.open(QIODevice::ReadOnly);
-    QByteArray val { file.readAll() };
-    file.close();
-
-    QJsonObject object {QJsonDocument::fromJson(val).object()};
-    QJsonArray obstacles = object["obstacles"].toArray();
-
-    for (int i = 0; i < obstacles.size(); i++) {
-        QString colour {obstacles.at(i).toObject()["colour"].toString()};
-        double xpos {obstacles.at(i).toObject()["position"].toObject()["x"].toDouble()};
-        double ypos {obstacles.at(i).toObject()["position"].toObject()["y"].toDouble()};
-        double width {obstacles.at(i).toObject()["dimensions"].toObject()["x"].toDouble()};
-        double height {obstacles.at(i).toObject()["dimensions"].toObject()["y"].toDouble()};
-        level->addObstacle( Obstacle {Point {xpos, ypos}, Point {width, height}, colour} );
-    }
-
-}
-
 void Dialog::nextFrame() {
     if (left_key)
         level->setXVelocity(-6);
@@ -69,6 +40,29 @@ void Dialog::nextFrame() {
     if ((left_key and right_key) or (!left_key and !right_key))
         level->setXVelocity(0);
     update();
+}
+
+void Dialog::configureLevel(const QString filename) {
+
+    QDir filepath {QDir::currentPath()};
+    filepath.cd("../ArcadeGame");
+
+    QFile file {filepath.path().append(filename)};
+
+    file.open(QIODevice::ReadOnly);
+    QJsonObject object {QJsonDocument::fromJson(file.readAll()).object()};
+    file.close();
+
+    QJsonArray obstacles = object["obstacles"].toArray();
+
+    for (auto o : obstacles) {
+        QString colour {o.toObject()["colour"].toString()};
+        double xpos {o.toObject()["position"].toObject()["x"].toDouble()};
+        double ypos {o.toObject()["position"].toObject()["y"].toDouble()};
+        double width {o.toObject()["dimensions"].toObject()["x"].toDouble()};
+        double height {o.toObject()["dimensions"].toObject()["y"].toDouble()};
+        level->addObstacle( Obstacle {Point {xpos, ypos}, Point {width, height}, colour} );
+    }
 }
 
 void Dialog::configureTimer() {
