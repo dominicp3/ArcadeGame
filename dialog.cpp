@@ -57,11 +57,11 @@ void Dialog::configureLevel(const QString filename) {
 
     for (auto o : obstacles) {
         QString colour {o.toObject()["colour"].toString()};
-        double xpos {o.toObject()["position"].toObject()["x"].toDouble()};
-        double ypos {o.toObject()["position"].toObject()["y"].toDouble()};
-        double width {o.toObject()["dimensions"].toObject()["x"].toDouble()};
-        double height {o.toObject()["dimensions"].toObject()["y"].toDouble()};
-        level->addObstacle( Obstacle {Point {xpos, ypos}, Point {width, height}, colour} );
+        int xpos {o.toObject()["position"].toObject()["x"].toInt()};
+        int ypos {o.toObject()["position"].toObject()["y"].toInt()};
+        int width {o.toObject()["dimensions"].toObject()["x"].toInt()};
+        int height {o.toObject()["dimensions"].toObject()["y"].toInt()};
+        level->addObstacle( Obstacle {xpos, ypos, width, height, colour} );
     }
 }
 

@@ -3,12 +3,10 @@
 
 #include <QColor>
 #include <QPainter>
-#include "point.h"
 
 class Obstacle {
 public:
     Obstacle(int xpos, int ypos, int width, int height, QColor colour);
-    Obstacle(Point position, Point dimensions, QColor colour);
     void render(QPainter &paint, int frameHeight);
 
     int getRightEdge() {return m_xpos + m_width;}

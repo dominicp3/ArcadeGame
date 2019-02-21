@@ -35,8 +35,7 @@ HEADERS += \
         dialog.h \
     player.h \
     level.h \
-    obstacle.h \
-    point.h
+    obstacle.h
 
 FORMS += \
         dialog.ui
