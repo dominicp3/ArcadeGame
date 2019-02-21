@@ -12,8 +12,8 @@ Level::Level(int width, int height, Player player) :
 
 void Level::renderLevel(QPainter &paint) {
 
-    if (m_screenOffset <= -2*m_frameWidth) m_screenOffset = 0;
-    paint.drawImage(m_screenOffset, 0, m_background, 0, 0, 3600, m_frameHeight);
+    if (m_screenOffset <= -2200) m_screenOffset = 0;
+    paint.drawImage(m_screenOffset, 0, m_background, 0, 0, 4400, m_frameHeight);
 
     bool playerAtMiddle = m_player.getRightEdge() + m_player.getXVelocity() >= m_frameWidth/2;
 

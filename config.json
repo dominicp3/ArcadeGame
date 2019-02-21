@@ -1,7 +1,13 @@
 {
   "obstacles" : [
-    {"colour": "red", "position": {"x":900, "y":55}, "dimensions": {"x":50, "y":100}},
-    {"colour": "black", "position": {"x":530, "y":220}, "dimensions": {"x":50, "y":100}},
-    {"colour": "blue", "position": {"x":200, "y":200}, "dimensions": {"x":500, "y":20}}
+    {"c":"salmon", "colour": "#FA8072", "position": {"x":900, "y":55}, "dimensions": {"x":50, "y":250}},
+    {"c":"light green", "colour": "#1BDCD0", "position": {"x":530, "y":220}, "dimensions": {"x":50, "y":100}},
+    {"c":"yellow", "colour": "#ECA71E", "position": {"x":260, "y":200}, "dimensions": {"x":320, "y":20}},
+    {"c":"red", "colour": "#ff3730", "position": {"x":581, "y":270}, "dimensions": {"x":250, "y":50}},
+    {"c":"blue", "colour": "#0b6aef", "position": {"x":781, "y":321}, "dimensions": {"x":50, "y":50}},
+    {"c":"purple", "colour": "#d85dbd", "position": {"x":950, "y":200}, "dimensions": {"x":700, "y":50}},
+    {"c":"green", "colour": "#7cea8b", "position": {"x":1620, "y":50}, "dimensions": {"x":30, "y":150}},
+    {"c":"red top", "colour": "#ff6363", "position": {"x":650, "y":550}, "dimensions": {"x":500, "y":20}},
+    {"c":"grey", "colour": "#b5b5b5", "position": {"x":706, "y":55}, "dimensions": {"x":50, "y":100}}
   ]
 }

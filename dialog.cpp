@@ -6,7 +6,7 @@
 #include <QJsonObject>
 #include <QJsonArray>
 
-const int FRAME_WIDTH = 1100;
+const int FRAME_WIDTH = 1700;
 const int FRAME_HEIGHT = 700;
 
 const int LEFT_ARROW = 16777234;
