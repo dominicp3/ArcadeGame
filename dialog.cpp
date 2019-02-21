@@ -74,20 +74,15 @@ void Dialog::paintEvent(QPaintEvent *painter) {
 
 void Dialog::keyReleaseEvent(QKeyEvent *e) {
     if (!e->isAutoRepeat()) {
-        if (e->key() == Qt::Key_Left)
-            left_key = false;
-        if (e->key() == Qt::Key_Right)
-            right_key = false;
-        if (e->key() == Qt::Key_Up)
-            up_key = false;
+        if (e->key() == Qt::Key_Left) left_key = false;
+        if (e->key() == Qt::Key_Right) right_key = false;
+        if (e->key() == Qt::Key_Up) up_key = false;
     }
 }
 
 void Dialog::keyPressEvent(QKeyEvent *e) {
-    if (e->key() == Qt::Key_Left)
-        left_key = true;
-    if (e->key() == Qt::Key_Right)
-        right_key = true;
+    if (e->key() == Qt::Key_Left) left_key = true;
+    if (e->key() == Qt::Key_Right) right_key = true;
     if (e->key() == Qt::Key_Up and !up_key) {
         up_key = true;
         level->setYVelocity(8);
