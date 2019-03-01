@@ -6,6 +6,7 @@
 class Player {
 public:
         Player(int xpos, int ypos);
+        Player(int xpos, int ypos, QString size);
         void move(std::vector<Obstacle> &obstacles, int renderWidth, int renderHeight);
         void collisionDetection(Obstacle &ob);
 

@@ -24,6 +24,7 @@ private:
         QImage m_background;
         int m_screenOffset = 0;
         bool m_scroll = true;
+        int temp;
 };
 
 #endif // LEVEL_H

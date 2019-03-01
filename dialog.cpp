@@ -5,14 +5,15 @@
 #include <QJsonObject>
 #include <QJsonArray>
 
+#include <iostream>
+
 const int FRAME_WIDTH = 1700;
 const int FRAME_HEIGHT = 700;
 
-Dialog::Dialog(QWidget *parent) :
+Dialog::Dialog(QWidget *parent):
         QDialog(parent),
         ui(new Ui::Dialog),
-        timer(new QTimer {this}),
-        level(new Level {FRAME_WIDTH, FRAME_HEIGHT, Player {10, 0}})
+        timer(new QTimer {this})
 {
         level->scroll(false);
         setFixedSize(FRAME_WIDTH, FRAME_HEIGHT);
@@ -50,15 +51,21 @@ void Dialog::configureLevel(const QString filename)
         QJsonObject object {QJsonDocument::fromJson(file.readAll()).object()};
         file.close();
 
+        auto size {object["size"].toString()};
+        auto xPosition {object["position"].toObject()["x"].toInt()};
+        auto yPosition {object["position"].toObject()["y"].toInt()};
+
+        level = new Level {FRAME_WIDTH, FRAME_HEIGHT, Player {xPosition, yPosition, size.prepend("/")}};
+
         QJsonArray obstacles = object["obstacles"].toArray();
 
         for (auto o : obstacles) {
-                QString colour {o.toObject()["colour"].toString()};
-                int xpos {o.toObject()["position"].toObject()["x"].toInt()};
-                int ypos {o.toObject()["position"].toObject()["y"].toInt()};
-                int width {o.toObject()["dimensions"].toObject()["x"].toInt()};
-                int height {o.toObject()["dimensions"].toObject()["y"].toInt()};
-                level->addObstacle( Obstacle {xpos, ypos, width, height, colour} );
+                auto colour {o.toObject()["colour"].toString()};
+                auto xpos {o.toObject()["position"].toObject()["x"].toInt()};
+                auto ypos {o.toObject()["position"].toObject()["y"].toInt()};
+                auto width {o.toObject()["dimensions"].toObject()["x"].toInt()};
+                auto height {o.toObject()["dimensions"].toObject()["y"].toInt()};
+                level->addObstacle(Obstacle {xpos, ypos, width, height, colour});
         }
 }
 

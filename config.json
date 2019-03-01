@@ -1,5 +1,7 @@
 {
-  "obstacles" : [
+  "size": "normal",
+  "position": {"x":10, "y":0},
+  "obstacles": [
     {"c":"salmon", "colour": "#FA8072", "position": {"x":900, "y":55}, "dimensions": {"x":50, "y":250}},
     {"c":"light green", "colour": "#1BDCD0", "position": {"x":530, "y":220}, "dimensions": {"x":50, "y":100}},
     {"c":"yellow", "colour": "#ECA71E", "position": {"x":260, "y":200}, "dimensions": {"x":320, "y":20}},

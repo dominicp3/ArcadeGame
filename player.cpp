@@ -1,13 +1,24 @@
 ﻿#include <QDir>
 #include "player.h"
 
-Player::Player(int xpos, int ypos) :
+Player::Player(int xpos, int ypos):
         m_xpos(xpos),
         m_ypos(ypos)
 {
         QDir iconPath = QDir::currentPath();
         iconPath.cd("../ArcadeGame/images");
-        setIcon(iconPath.path().append("/mario.png"));
+        setIcon(iconPath.path().append("/normal"));
+        m_width  = m_playerIcon.width();
+        m_height = m_playerIcon.height();
+}
+
+Player::Player(int xpos, int ypos, QString size):
+        m_xpos(xpos),
+        m_ypos(ypos)
+{
+        QDir iconPath = QDir::currentPath();
+        iconPath.cd("../ArcadeGame/images");
+        setIcon(iconPath.path().append(size));
         m_width  = m_playerIcon.width();
         m_height = m_playerIcon.height();
 }
