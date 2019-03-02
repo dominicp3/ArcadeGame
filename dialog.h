@@ -26,8 +26,8 @@ public slots:
 
 private:
         Ui::Dialog *ui;
-        QTimer *timer;
-        Level *level;
+        QTimer *timer = nullptr;
+        Level *level = nullptr;
         bool up_key = false;
         bool left_key = false;
         bool right_key = false;

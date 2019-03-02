@@ -23,7 +23,7 @@ private:
         std::vector<Obstacle> m_obstacles;
         QImage m_background;
         int m_screenOffset = 0;
-        bool m_scroll = true;
+        bool m_scroll = false;
         int temp;
 };
 

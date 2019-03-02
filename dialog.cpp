@@ -15,11 +15,10 @@ Dialog::Dialog(QWidget *parent):
         ui(new Ui::Dialog),
         timer(new QTimer {this})
 {
-        level->scroll(false);
         setFixedSize(FRAME_WIDTH, FRAME_HEIGHT);
         configureLevel("/config.json");
-        ui->setupUi(this);
         configureTimer();
+        ui->setupUi(this);
 }
 
 Dialog::~Dialog()
@@ -47,13 +46,36 @@ void Dialog::configureLevel(const QString filename)
 
         QFile file {filepath.path().append(filename)};
 
+        if (!file.exists())
+                throw "file does not exist!";
+
         file.open(QIODevice::ReadOnly);
         QJsonObject object {QJsonDocument::fromJson(file.readAll()).object()};
         file.close();
 
-        auto size {object["size"].toString()};
-        auto xPosition {object["position"].toObject()["x"].toInt()};
-        auto yPosition {object["position"].toObject()["y"].toInt()};
+        auto sizeObject {object["size"]};
+        auto positionObject {object["position"]};
+        auto obstaclesObject {object["obstacles"]};
+
+        if (sizeObject.isNull())
+                throw "invalid size object in config file, name should be \"size\"";
+        if (positionObject.isNull())
+                throw "invalid position object in config file, name should be \"position\"";
+        if (obstaclesObject.isNull())
+                throw "invalid obstacles object in config file, name should be \"obstacles\"";
+
+        auto size {sizeObject.toString()};
+
+        if (size != "tiny" and size != "normal" and size != "large" and size != "giant")
+                throw "invalid size value, options are \"tiny\", \"normal\", \"large\", \"giant\"";
+
+        auto xPosition {positionObject.toObject()["x"].toInt()};
+        auto yPosition {obstaclesObject.toObject()["y"].toInt()};
+
+        if (xPosition < 0 or xPosition > FRAME_WIDTH / 2)
+                throw "invalid x position, should be between 0 and FRAME_WIDTH/2";
+        if (yPosition < 0 or yPosition > FRAME_HEIGHT)
+                throw "invalid y position, should be between 0 and FRAME_HEIGHT";
 
         level = new Level {FRAME_WIDTH, FRAME_HEIGHT, Player {xPosition, yPosition, size.prepend("/")}};
 
@@ -77,9 +99,11 @@ void Dialog::configureTimer()
 
 void Dialog::paintEvent(QPaintEvent *painter)
 {
-        QPainter paint {this};
-        level->renderLevel(paint);
-        painter->ignore();
+        if (level != nullptr) {
+                QPainter paint {this};
+                level->renderLevel(paint);
+                painter->ignore();
+        }
 }
 
 void Dialog::keyReleaseEvent(QKeyEvent *e)
